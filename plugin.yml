@@ -1,0 +1,10 @@
+name: Skyblock
+version: 0.0.1
+author: OhnreiHen
+api-version: 1.13
+main: fr.ohnreihen.skyblock.Main
+commands:
+  test:
+    description: Ceci est une commande de test
+    permission: test.use
+ 
