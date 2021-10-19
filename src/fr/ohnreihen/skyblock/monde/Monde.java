@@ -3,6 +3,7 @@ package fr.ohnreihen.skyblock.monde;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
@@ -15,6 +16,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import fr.ohnreihen.skyblock.Main;
 import fr.ohnreihen.skyblock.Joueur.Joueur;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
 
 public class Monde {
 
@@ -185,6 +187,20 @@ public class Monde {
 		joueur.setMondeIle(mondeIle);
 		joueur.setMondePVE(new Monde(player, Monde.TYPE_PVE));
 		
+	}
+	
+	public static void changerMonde(Player player, String type) throws JoueurNonEnregistrerException {
+		
+		Joueur joueur = Joueur.getJoueur(player);
+		World monde = null;
+		if (type.equals(Monde.TYPE_ILE)) {
+			monde = joueur.getMondeIle().getWorld();
+		}else if(type.equals(Monde.TYPE_PVE)) {
+			monde = joueur.getMondePVE().getWorld();
+		}
+		
+		Bukkit.unloadWorld(player.getWorld(), true);
+		player.teleport(monde.getSpawnLocation());
 		
 	}
 }

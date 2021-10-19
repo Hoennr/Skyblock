@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import fr.ohnreihen.skyblock.Main;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
 import fr.ohnreihen.skyblock.monde.Monde;
 
 
@@ -70,7 +71,7 @@ public class Joueur   {
 
     ///////////                    METHODES PERSO            ////////////////////////////
 
-	public static void sauvegarderJoueur(Player player) {
+	public static void sauvegarderJoueur(Player player) throws JoueurNonEnregistrerException {
 		Joueur joueur = getJoueur(player);
 		PersistentDataContainer data = player.getPersistentDataContainer();		
 		int scoreChute = joueur.getScoreChute();
@@ -126,9 +127,12 @@ public class Joueur   {
 		listJoueur.put(idJoueur, newjoueur);
 	}
 	
-	public static Joueur getJoueur(Player player) {
+	public static Joueur getJoueur(Player player) throws JoueurNonEnregistrerException{
 		
 		Joueur joueur = listJoueur.get(player.getUniqueId());
+		if (joueur==null) {
+			throw (new JoueurNonEnregistrerException());
+		}
 		
 		return joueur; 
 	}

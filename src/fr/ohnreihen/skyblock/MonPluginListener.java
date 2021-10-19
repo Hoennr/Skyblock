@@ -1,10 +1,8 @@
 package fr.ohnreihen.skyblock;
 
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.World;
 //import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -28,6 +26,7 @@ import fr.ohnreihen.skyblock.Joueur.Joueur;
 import fr.ohnreihen.skyblock.Joueur.PiochePerso;
 import fr.ohnreihen.skyblock.Joueur.SwordPerso;
 import fr.ohnreihen.skyblock.Joueur.TableauScore;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
 import fr.ohnreihen.skyblock.menus.MenuMonde;
 import fr.ohnreihen.skyblock.monde.Monde;
 
@@ -79,7 +78,7 @@ public class MonPluginListener implements Listener{
 	}
 	
 	@EventHandler
-	static void onQuit(PlayerQuitEvent event) {
+	static void onQuit(PlayerQuitEvent event) throws JoueurNonEnregistrerException {
 		
 		
 		Player player = event.getPlayer();
@@ -161,7 +160,7 @@ public class MonPluginListener implements Listener{
 //	}
 
 	@EventHandler	
-	static void onFallVoid(PlayerMoveEvent playerMEvent) {
+	static void onFallVoid(PlayerMoveEvent playerMEvent) throws JoueurNonEnregistrerException {
 		
 		Player player = playerMEvent.getPlayer();
 		Location destination = playerMEvent.getTo();
@@ -189,7 +188,7 @@ public class MonPluginListener implements Listener{
 	}
 	
 	@EventHandler
-	static void onPlayerClickMenu (InventoryClickEvent event) {
+	static void onPlayerClickMenu (InventoryClickEvent event) throws JoueurNonEnregistrerException {
 		
 		Player player = (Player) event.getWhoClicked();
 		//InventoryView inventoryView = event.getView();
@@ -204,22 +203,14 @@ public class MonPluginListener implements Listener{
 				ItemStack itemUsed = event.getCurrentItem();
 				if(itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEPVE)) {
 
-					World nouveauMondePVE = new Monde((Player) player, Monde.TYPE_PVE).getWorld() ;
-					Bukkit.unloadWorld(player.getWorld(), true);
-					player.teleport(nouveauMondePVE.getSpawnLocation());
-					
-					
-					System.out.println("Le joueur part dans le monde PVE");
+					Monde.changerMonde(player, Monde.TYPE_PVE);
+					//System.out.println("Le joueur part dans le monde PVE");
 					
 				}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEILE)){
 					
 					
-					
-					World monIle = new Monde((Player) player, Monde.TYPE_ILE).getWorld() ;
-					Bukkit.unloadWorld(player.getWorld(), true);
-					player.teleport(monIle.getSpawnLocation());
-
-					System.out.println("Le joueur part sur son ile");
+					Monde.changerMonde(player, Monde.TYPE_ILE);
+					//System.out.println("Le joueur part sur son ile");
 					
 				}
 				player.closeInventory();
@@ -248,19 +239,23 @@ public class MonPluginListener implements Listener{
 	static void onOutofTaille(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		Location destination = event.getTo();
-		Joueur joueur = Joueur.getJoueur(player);
-		Monde mondeIle = joueur.getMondeIle();
-		String nomMondeIle = mondeIle.getNomMonde();
-		//System.out.println ("Voici destination.getWorld().getName() : " +destination.getWorld().getName());
-		//System.out.println ("Voici nomMondeIle : " +nomMondeIle);
+		try {
+			Joueur joueur = Joueur.getJoueur(player);
+			Monde mondeIle = joueur.getMondeIle();
+			String nomMondeIle = mondeIle.getNomMonde();
+			//System.out.println ("Voici destination.getWorld().getName() : " +destination.getWorld().getName());
+			//System.out.println ("Voici nomMondeIle : " +nomMondeIle);
 
-		if (destination.getWorld().getName().equals(nomMondeIle)) {
-			//System.out.println ("Le joueur se deplace sur son ile");
-			if(mondeIle.getxMin()>destination.getX() || destination.getX()>mondeIle.getxMax() || mondeIle.getzMin()>destination.getZ() || destination.getZ()>mondeIle.getzMax() ) {
-				//System.out.println ("Le joueur est hors de son ile");
-				event.setCancelled(true);				
+			if (destination.getWorld().getName().equals(nomMondeIle)) {
+				//System.out.println ("Le joueur se deplace sur son ile");
+				if(mondeIle.getxMin()>destination.getX() || destination.getX()>mondeIle.getxMax() || mondeIle.getzMin()>destination.getZ() || destination.getZ()>mondeIle.getzMax() ) {
+					//System.out.println ("Le joueur est hors de son ile");
+					event.setCancelled(true);				
+				}
 			}
+		}catch (JoueurNonEnregistrerException e) {
+				System.out.println("Le joueur n'est pas encore enregistré. Veuillez attendre la fin de création de ses mondes");
 		}
 	}
-
+		
 }

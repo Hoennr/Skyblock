@@ -80,8 +80,8 @@ public class OutilIncassable {
 		 niveau=niveauActuel;
 		 exp=expActuel;
 
-		 lore.set(2,("§f"+expActuel+"/"+expParNiveau[niveauActuel]));
-		 lore.set(0,("§fNiveau : "+niveauActuel));
+		 lore.set(2,("§f"+expActuel+"/"+expParNiveau[niveau]));
+		 lore.set(0,("§fNiveau : "+niveau));
 		
 		
 		itemMeta.setLore(lore);
@@ -93,7 +93,8 @@ public class OutilIncassable {
 		
 		List<String> lore = itemTenue.getItemMeta().getLore();
 		int  niveauActuel = Integer.parseInt(lore.get(0).replace("§fNiveau : ", ""));
-
+		
+		niveau=niveauActuel; 
 		return niveauActuel;
 	}
 
@@ -102,9 +103,11 @@ public class OutilIncassable {
 		List<String> lore = itemTenue.getItemMeta().getLore();
 		String lore2 = lore.get(2);
 		lore2 = lore2.replace("§f", "");
+		System.out.println("L'exp pour monter de niveau est de : " +"/"+expParNiveau[niveau] );
 		lore2 = lore2.replace("/"+expParNiveau[niveau], "");
 		int  expActuel = Integer.parseInt(lore2);
 
+		exp=expActuel;
 		return expActuel;
 	}
 	
