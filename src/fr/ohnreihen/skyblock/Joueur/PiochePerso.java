@@ -23,7 +23,6 @@ public class PiochePerso extends OutilIncassable {
 		metaItem.addEnchant(Enchantment.DIG_SPEED, 1, true);
 		pioche.setItemMeta(metaItem);
 
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ItemStack getPioche() {
@@ -33,7 +32,6 @@ public class PiochePerso extends OutilIncassable {
 	public PiochePerso(ItemStack item) {
 		pioche=item;
 		majStatsItem(item);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void majItem(ItemStack item, Player player, int expObtenue) {

@@ -53,6 +53,8 @@ public class MonPluginListener implements Listener{
 			player.getInventory().addItem(MenuMonde.getMenuItem());
 			
 			Monde.creerIle(player);
+			joueur.setMondeIle(new Monde(player, Monde.TYPE_ILE));
+			joueur.setMondePVE(new Monde(player, Monde.TYPE_PVE));
 			
 			player.updateInventory();
 			//System.out.println("C'est la premiere connection de  " + joueur.getPlayer().getName());
@@ -60,6 +62,7 @@ public class MonPluginListener implements Listener{
 			
 		}else {
 			joueur = Joueur.recupererDataJoueur(player);
+			Monde.recupererDataMonde(joueur);
 			//System.out.println("Ce n'est pas la premiere connection de  " + joueur.getPlayer().getName());
 		}
 		
@@ -78,9 +81,13 @@ public class MonPluginListener implements Listener{
 	@EventHandler
 	static void onQuit(PlayerQuitEvent event) {
 		
+		
 		Player player = event.getPlayer();
+		Joueur joueur = Joueur.getJoueur(player);
+		
 		Joueur.sauvegarderJoueur(player);
 		Joueur.supprimerJoueurList(player);
+		Monde.sauvegarderMondes(joueur);
 		//Joueur joueur = recupJoueur(player);
 		
 		
@@ -172,6 +179,8 @@ public class MonPluginListener implements Listener{
 			
 			Joueur joueur = Joueur.getJoueur(player);
 			joueur.setScoreChute(joueur.getScoreChute()+1);
+			//Monde mondeIle = joueur.getMondeIle();
+			//mondeIle.setTaille(mondeIle.getTaille()+2);
 			TableauScore.creerTableau(joueur);
 			System.out.println("Le joueur " + joueur.getPlayer().getName() + "viens de chuter et a " + joueur.getScoreChute()+ " de Score");
 			
@@ -187,35 +196,38 @@ public class MonPluginListener implements Listener{
 		Inventory inventaire = event.getClickedInventory();
 		
 		//if(inventoryView.getTitle().equals(MenuMonde.NOMMENU)) {
-			
-		if(player!=inventaire.getHolder()) {
-			
-
-			ItemStack itemUsed = event.getCurrentItem();
-			if(itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEPVE)) {
-
-				World nouveauMondePVE = Monde.creerMonde((Player) player, Monde.TYPE_PVE) ;
-				Bukkit.unloadWorld(player.getWorld(), true);
-				player.teleport(nouveauMondePVE.getSpawnLocation());
+		
+		if (inventaire !=null ) {
+			if(player!=inventaire.getHolder()) {
 				
-				
-				System.out.println("Le joueur part dans le monde PVE");
+
+				ItemStack itemUsed = event.getCurrentItem();
+				if(itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEPVE)) {
+
+					World nouveauMondePVE = new Monde((Player) player, Monde.TYPE_PVE).getWorld() ;
+					Bukkit.unloadWorld(player.getWorld(), true);
+					player.teleport(nouveauMondePVE.getSpawnLocation());
+					
+					
+					System.out.println("Le joueur part dans le monde PVE");
+					
+				}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEILE)){
+					
+					
+					
+					World monIle = new Monde((Player) player, Monde.TYPE_ILE).getWorld() ;
+					Bukkit.unloadWorld(player.getWorld(), true);
+					player.teleport(monIle.getSpawnLocation());
+
+					System.out.println("Le joueur part sur son ile");
+					
+				}
 				player.closeInventory();
 				event.setCancelled(true);
-			}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEILE)){
 				
-				
-				
-				World monIle = Monde.creerMonde((Player) player, Monde.TYPE_ILE) ;
-				Bukkit.unloadWorld(player.getWorld(), true);
-				player.teleport(monIle.getSpawnLocation());
-
-				System.out.println("Le joueur part sur son ile");
-				player.closeInventory();
-				event.setCancelled(true);
 			}
-			
 		}
+		
 	}
 
 	@EventHandler
@@ -228,10 +240,27 @@ public class MonPluginListener implements Listener{
 			if(event.getItem().getItemMeta().getDisplayName().equals(MenuMonde.NOMMENU)){
 		    	MenuMonde.ouvrirMenuMonde(p);
 		    }
-
 	    }
-	    	    
-		
 	}
-		
+
+
+	@EventHandler
+	static void onOutofTaille(PlayerMoveEvent event) {
+		Player player = event.getPlayer();
+		Location destination = event.getTo();
+		Joueur joueur = Joueur.getJoueur(player);
+		Monde mondeIle = joueur.getMondeIle();
+		String nomMondeIle = mondeIle.getNomMonde();
+		//System.out.println ("Voici destination.getWorld().getName() : " +destination.getWorld().getName());
+		//System.out.println ("Voici nomMondeIle : " +nomMondeIle);
+
+		if (destination.getWorld().getName().equals(nomMondeIle)) {
+			//System.out.println ("Le joueur se deplace sur son ile");
+			if(mondeIle.getxMin()>destination.getX() || destination.getX()>mondeIle.getxMax() || mondeIle.getzMin()>destination.getZ() || destination.getZ()>mondeIle.getzMax() ) {
+				//System.out.println ("Le joueur est hors de son ile");
+				event.setCancelled(true);				
+			}
+		}
+	}
+
 }

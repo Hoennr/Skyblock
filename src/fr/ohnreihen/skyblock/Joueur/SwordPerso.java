@@ -23,7 +23,6 @@ public class SwordPerso extends OutilIncassable {
 		metaItem.addEnchant(Enchantment.DIG_SPEED, 1, true);
 		sword.setItemMeta(metaItem);
 
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ItemStack getSword() {
@@ -33,7 +32,6 @@ public class SwordPerso extends OutilIncassable {
 	public SwordPerso(ItemStack item) {
 		sword=item;
 		majStatsItem(item);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void majItem(ItemStack item, Player player, int expObtenue) {

@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import fr.ohnreihen.skyblock.Main;
+import fr.ohnreihen.skyblock.monde.Monde;
 
 
 public class Joueur   {
@@ -19,6 +20,9 @@ public class Joueur   {
     private long money = 0;
     private int eclat = 0;
     private int niveauPrestige=0;
+    private Monde mondePVE;
+    private Monde mondeIle;
+    
     
 	private static int NOMBRE_JOUEUR_MAX = 20;
 	public static HashMap<UUID, Joueur>  listJoueur = new HashMap<UUID, Joueur>(NOMBRE_JOUEUR_MAX);
@@ -54,6 +58,15 @@ public class Joueur   {
 	}public void setNiveauPrestige(int niveau_prestige) {
 		this.niveauPrestige = niveau_prestige;
 	}
+	public Monde getMondeIle() {
+		return mondeIle;
+	}public void setMondeIle(Monde mondeIle) {
+		this.mondeIle = mondeIle;
+	}public Monde getMondePVE() {
+		return mondePVE;
+	}public void setMondePVE(Monde mondePVE) {
+		this.mondePVE = mondePVE;
+	}
 
     ///////////                    METHODES PERSO            ////////////////////////////
 
@@ -70,6 +83,8 @@ public class Joueur   {
 		data.set(new NamespacedKey(Main.getPlugin(), Joueur.KEYECLAT), PersistentDataType.INTEGER, eclat);
 		data.set(new NamespacedKey(Main.getPlugin(), Joueur.KEYNIVEAUPRESTIGE), PersistentDataType.INTEGER, niveauPrestige);
 		
+		Monde.sauvegarderMondes(joueur);
+		
 		//System.out.println("Les données de " + joueur.getPlayer().getName() + " ont été sauvegardé");
 		//System.out.println(joueur.getPlayer().getName() + " a " + money + "money");
 		//System.out.println(joueur.getPlayer().getName() + " a " + scoreChute + "chutes");
@@ -79,7 +94,6 @@ public class Joueur   {
 	}
 
 	public static Joueur recupererDataJoueur(Player player) {
-		// TODO Auto-generated method stub
 		Joueur joueur = new Joueur(player);
 		PersistentDataContainer data = player.getPersistentDataContainer();
 		int scoreChute = data.get(new NamespacedKey(Main.getPlugin(),Joueur.KEYSCORECHUTE), PersistentDataType.INTEGER);
@@ -122,7 +136,6 @@ public class Joueur   {
 	public static void supprimerJoueurList(Player player) {
 		
 		listJoueur.remove(player.getUniqueId());
-		// TODO Auto-generated method stub
 		
 	}
 }

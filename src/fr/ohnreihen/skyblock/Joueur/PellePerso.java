@@ -23,7 +23,6 @@ public class PellePerso extends OutilIncassable {
 		metaItem.addEnchant(Enchantment.DIG_SPEED, 1, true);
 		pelle.setItemMeta(metaItem);
 
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ItemStack getHache() {
@@ -33,7 +32,6 @@ public class PellePerso extends OutilIncassable {
 	public PellePerso(ItemStack item) {
 		pelle=item;
 		majStatsItem(item);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void majItem(ItemStack item, Player player, int expObtenue) {

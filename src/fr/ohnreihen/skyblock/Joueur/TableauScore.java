@@ -43,7 +43,7 @@ public class TableauScore {
 		String ligne2 = "§3§lMon Ile";
 		Score score2 = obj.getScore(ligne2);
 		score2.setScore(2);
-		String ligne1 = " §b§rTaille île : §b";
+		String ligne1 = " §b§rTaille île : §b "+joueur.getMondeIle().getTaille()+"x"+joueur.getMondeIle().getTaille();
 		Score score1 = obj.getScore(ligne1);
 		score1.setScore(1);
 		String ligne0 = "";
