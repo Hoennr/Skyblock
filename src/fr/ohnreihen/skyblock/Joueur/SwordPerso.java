@@ -13,14 +13,14 @@ public class SwordPerso extends OutilIncassable {
 	
 	public  ItemStack sword = new ItemStack(Material.WOODEN_SWORD);
 	public static String NOMSWORD = "§eMa Super épée";
-	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,2,2,0,1,2,3,0,4};
+	public static int enchantDommageParNiveau[]= new int []{0,1,0,1,2,2,0,1,2,3,0,4};
 	public static int enchantHasteParNiveau[]= new int []{0,0,0,1,0,0,0,1,0,0,0,1};
 	public static Material materialParNiveau[]= new Material []{Material.STONE_SWORD,Material.STONE_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD};
 
 	public SwordPerso() {
 		customItem(sword, NOMSWORD);
 		ItemMeta metaItem = sword.getItemMeta();
-		metaItem.addEnchant(Enchantment.DIG_SPEED, 1, true);
+		metaItem.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
 		sword.setItemMeta(metaItem);
 
 	}
@@ -45,8 +45,8 @@ public class SwordPerso extends OutilIncassable {
 	public  void monterDeNiveau(Player player, ItemStack item) {
 		
 		ItemMeta metaItem = item.getItemMeta();
-		int itemEnchantLv = metaItem.getEnchantLevel(Enchantment.DIG_SPEED)+enchantEfficiencyParNiveau[niveau];
-		metaItem.addEnchant(Enchantment.DIG_SPEED, itemEnchantLv, true);
+		int itemEnchantLv = metaItem.getEnchantLevel(Enchantment.DAMAGE_ALL)+enchantDommageParNiveau[niveau];
+		metaItem.addEnchant(Enchantment.DAMAGE_ALL, itemEnchantLv, true);
 		item.setItemMeta(metaItem);
 		
 		item.setType(materialParNiveau[niveau]);

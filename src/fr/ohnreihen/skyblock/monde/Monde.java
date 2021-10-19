@@ -29,6 +29,7 @@ public class Monde {
 	private float multiplicateurValeurItem = 1;
 	public static final String TYPE_PVE= "PVE";
 	public static final String TYPE_ILE= "ILE";
+	public static final String TYPE_SPAWN= "SPAWN";
 	private int taille = 150;
 	private int xMax = taille/2;
 	private int xMin = -taille/2;
@@ -41,6 +42,7 @@ public class Monde {
 	private static String KEYMULTIPLICATEURVALEURITEM = "Multiplicateurdelavaleurdesitems";
 	private static String KEYTAILLE= "Tailleile";
 	private World world;
+	public static final World WORLDPSPAWN = Bukkit.getWorld("world");
 	
 	
 	
@@ -197,6 +199,8 @@ public class Monde {
 			monde = joueur.getMondeIle().getWorld();
 		}else if(type.equals(Monde.TYPE_PVE)) {
 			monde = joueur.getMondePVE().getWorld();
+		}else if (type.equals(Monde.TYPE_SPAWN)) {
+			monde = Monde.WORLDPSPAWN;
 		}
 		
 		Bukkit.unloadWorld(player.getWorld(), true);

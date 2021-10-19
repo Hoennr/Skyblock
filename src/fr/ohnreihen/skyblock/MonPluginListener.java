@@ -5,11 +5,13 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 //import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -123,7 +125,7 @@ public class MonPluginListener implements Listener{
 	}
 	
 	@EventHandler
-	static void onBlockBreak(BlockBreakEvent event) {
+	static void onBlockBreakWOutilIncassable(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemTenue = player.getInventory().getItemInMainHand();
 		String nomItem = itemTenue.getItemMeta().getDisplayName();
@@ -135,7 +137,7 @@ public class MonPluginListener implements Listener{
 			estBonOutil = false;
 		}
 		
-		System.out.println("Le block a ete brisé par le bon outils: " + estBonOutil);
+		//System.out.println("Le block a ete brisé par le bon outils: " + estBonOutil);
 		if( (nomItem.equals(PiochePerso.NOMPIOCHE))  &  (estBonOutil)  ){
 			//System.out.println("Le joueur à casser un block");
 			PiochePerso piochePerso = new PiochePerso();
@@ -149,6 +151,23 @@ public class MonPluginListener implements Listener{
 		}
 	
 		
+	}
+	
+	@EventHandler
+	static void onKillWSwordPerso(EntityDeathEvent event) {
+		LivingEntity cibleMorte = event.getEntity();
+		LivingEntity meurtrier = cibleMorte.getKiller();
+		
+		if(meurtrier instanceof Player) {
+			Player player = (Player) meurtrier;
+			ItemStack itemTenue = player.getInventory().getItemInMainHand();
+			if(itemTenue.getItemMeta().getDisplayName().equals(SwordPerso.NOMSWORD)) {
+				SwordPerso sword = new SwordPerso();
+				sword.majItem(itemTenue, player, 1);
+			}
+		}
+		
+	
 	}
 	
 	
@@ -204,16 +223,23 @@ public class MonPluginListener implements Listener{
 				if(itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEPVE)) {
 
 					Monde.changerMonde(player, Monde.TYPE_PVE);
+					player.closeInventory();
 					//System.out.println("Le joueur part dans le monde PVE");
 					
 				}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEILE)){
 					
 					
 					Monde.changerMonde(player, Monde.TYPE_ILE);
+					player.closeInventory();
 					//System.out.println("Le joueur part sur son ile");
 					
+				}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDESPAWN)){
+					
+					Monde.changerMonde(player, Monde.TYPE_SPAWN);
+					player.closeInventory();
+					
 				}
-				player.closeInventory();
+				
 				event.setCancelled(true);
 				
 			}
