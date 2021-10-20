@@ -63,8 +63,8 @@ public class TableauScore {
 		//score2.setScore(0);
 		
 		joueur.getPlayer().setScoreboard(tableau);
-		System.out.println("Tableau créer pour le joueur " + joueur.getPlayer().getName() );
-		System.out.println("Il a " + joueur.getScoreChute() + " chutes au tableau" );
+		//System.out.println("Tableau créer pour le joueur " + joueur.getPlayer().getName() );
+		//System.out.println("Il a " + joueur.getScoreChute() + " chutes au tableau" );
 
 
 		

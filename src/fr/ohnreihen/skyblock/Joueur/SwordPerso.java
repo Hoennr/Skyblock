@@ -64,11 +64,11 @@ public class SwordPerso extends OutilIncassable {
 
 		int  newNiveau = Integer.parseInt(lore.get(0).replace("Niveau : ", ""));
 		niveau = newNiveau;
-		System.out.println("Le niveau de la sword est : " + newNiveau);
+		//System.out.println("Le niveau de la sword est : " + newNiveau);
 		
 		int  newExp = Integer.parseInt(lore.get(2).replace("/"+expParNiveau[niveau], ""));
 		exp=newExp;
-		System.out.println("Et elle a  : " + newExp + " d'exp");
+		//System.out.println("Et elle a  : " + newExp + " d'exp");
 
 	}
 

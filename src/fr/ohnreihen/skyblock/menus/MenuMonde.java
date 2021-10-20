@@ -54,13 +54,7 @@ public class MenuMonde {
 		itemMeta2.setDisplayName(MONDEILE);
 		option2.setItemMeta(itemMeta2);
 		inventaire.setItem(4,option2);
-		
-
-		
 	
-		
-		
-		
 	}
 	public static  ItemStack getMenuItem() {		
 		//ItemStack item = new ItemStack(Material.COMPASS);

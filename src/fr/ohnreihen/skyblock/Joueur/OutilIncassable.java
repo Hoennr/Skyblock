@@ -60,7 +60,7 @@ public class OutilIncassable {
 	
 	public  void majItem(ItemStack itemTenue, Player player, int expObtenu) {
 		
-		System.out.println("Le joueur à casser un block avec " + itemTenue.getItemMeta().getDisplayName());	
+		//System.out.println("Le joueur à casser un block avec " + itemTenue.getItemMeta().getDisplayName());	
 		ItemMeta itemMeta = itemTenue.getItemMeta();
 		List<String> lore = new ArrayList<String>();
 		
@@ -103,7 +103,7 @@ public class OutilIncassable {
 		List<String> lore = itemTenue.getItemMeta().getLore();
 		String lore2 = lore.get(2);
 		lore2 = lore2.replace("§f", "");
-		System.out.println("L'exp pour monter de niveau est de : " +"/"+expParNiveau[niveau] );
+		//System.out.println("L'exp pour monter de niveau est de : " +"/"+expParNiveau[niveau] );
 		lore2 = lore2.replace("/"+expParNiveau[niveau], "");
 		int  expActuel = Integer.parseInt(lore2);
 
