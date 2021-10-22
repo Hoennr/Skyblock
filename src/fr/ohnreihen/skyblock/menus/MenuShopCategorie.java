@@ -62,11 +62,13 @@ public class MenuShopCategorie {
 		
 		if(Arrays.asList(nomCategorie).contains(nomItem)) {
 			System.out.println("Le nom de l'item est compris dans la liste des categorie");
-			MenuBlocks.ouvrirMenuBlocks(player, itemUsed.getItemMeta().getDisplayName() );
+			MenuBlocks.ouvrirMenuBlocks(player, itemUsed.getItemMeta().getDisplayName(),0 );
 			
 		}else if (itemUsed.getItemMeta().getDisplayName().equals("Retour")) {
 			MenuPrincipal.ouvrirMenuPrincipal(player);
 		}
+		
+		event.setCancelled(true);
 		
 	}
 	

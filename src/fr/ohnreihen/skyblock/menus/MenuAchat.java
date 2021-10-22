@@ -43,7 +43,7 @@ public class MenuAchat {
 				ItemMeta itemMeta = is.getItemMeta();
 				int quantité =  (int) Math.pow(2,i*2);
 				ArrayList<String> lore = new ArrayList<String>();
-				lore.add("  §c❙§r§fAchat : §c"+produitAACheter.getPrixAchat()*quantité +"￥");
+				lore.add("  §c❙§r§fAchat : §c"+produitAACheter.getPrixAchat()*quantité +"§e￥");
 				lore.add("  §b❙§r§fQuantité : §b"+quantité);
 				
 				itemMeta.setLore(lore);
@@ -55,7 +55,7 @@ public class MenuAchat {
 				ItemMeta itemMeta = is.getItemMeta();
 				int quantité =  (int) Math.pow(2,i);
 				ArrayList<String> lore = new ArrayList<String>();
-				lore.add("  §c❙§r§fAchat : §c"+produitAACheter.getPrixAchat()*quantité*128 +"￥");
+				lore.add("  §c❙§r§fAchat : §c"+produitAACheter.getPrixAchat()*quantité*128 +"§e￥");
 				lore.add("  §b❙§r§fQuantité : §b"+quantité*128);
 				lore.add("§7("+quantité*2+"stacks)");
 				
@@ -98,7 +98,7 @@ public class MenuAchat {
 			produitAchete = Produits.getProduit(is_Produit);
 			if (itemUsed.getItemMeta().getDisplayName().equals("Retour")) {
 				int categorie = produitAchete.getCategorie();
-				MenuBlocks.ouvrirMenuBlocks(player, Produits.NOM_CATEGORIE[categorie]);
+				MenuBlocks.ouvrirMenuBlocks(player, Produits.NOM_CATEGORIE[categorie],0);
 			}else if (is_Produit.getType()==itemUsed.getType()) {
 				acheterProduit(event, itemUsed, player);
 			}
@@ -106,6 +106,7 @@ public class MenuAchat {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		event.setCancelled(true);
 	}
 
 	private static void acheterProduit(InventoryClickEvent event, ItemStack produit, Player player) {
@@ -116,6 +117,7 @@ public class MenuAchat {
 		lore1 = lore1.replace("❙", "");
 		lore1 = lore1.replace("§r", "");
 		lore1 = lore1.replace("§fQuantité", "");
+		lore1 = lore1.replace("§e", "");
 		lore1 = lore1.replace(" : §b", "");
 		int quantite = Integer.parseInt(lore1);
 		
@@ -125,6 +127,7 @@ public class MenuAchat {
 		lore0 = lore0.replace("§r§f","");
 		lore0 = lore0.replace("❙","");
 		lore0 = lore0.replace("§f","");
+		lore0= lore0.replace("§e", "");
 		lore0 = lore0.replace("￥", "");
 		int  prixTotal = Integer.parseInt(lore0);
 		

@@ -115,5 +115,6 @@ public class MenuPrincipal {
 			Monde.changerMonde(player, Monde.TYPE_SPAWN);
 			player.closeInventory();
 		}
+		event.setCancelled(true);
 	}
 }

@@ -1,7 +1,6 @@
 package fr.ohnreihen.skyblock;
 
 
-import java.util.Arrays;
 
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -35,6 +34,7 @@ import fr.ohnreihen.skyblock.menus.MenuAchat;
 import fr.ohnreihen.skyblock.menus.MenuBlocks;
 import fr.ohnreihen.skyblock.menus.MenuPrincipal;
 import fr.ohnreihen.skyblock.menus.MenuShopCategorie;
+import fr.ohnreihen.skyblock.menus.Produits;
 import fr.ohnreihen.skyblock.monde.Monde;
 
 public class MonPluginListener implements Listener{
@@ -223,18 +223,20 @@ public class MonPluginListener implements Listener{
 		if (inventaire !=null ) {
 			if(player!=inventaire.getHolder()) {
 				
+				String nomInventaire = event.getView().getTitle();
+				if (nomInventaire.contains(nomInventaire))
+				
 				if (inventaire==MenuPrincipal.getInventaire()) {
 					//System.out.println("J'ai cliqué dans le menu");
 					MenuPrincipal.utiliserMenu(event);
 				}else if (inventaire==MenuShopCategorie.getInventaire()) {
 					MenuShopCategorie.utiliserMenu(event);
-				}else if (Arrays.asList(MenuBlocks.getInventaireCategorie()).indexOf(inventaire) != -1) {
-					MenuBlocks.utiliserMenu(event);
 				}else if (inventaire==MenuAchat.getInventaire()) {
 					MenuAchat.utiliserMenu(event);
-				}
-								
-				event.setCancelled(true);
+				}else if (Produits.contientNomCategorie(event.getView().getTitle())){
+					MenuBlocks.utiliserMenu(event);
+				}				
+				
 				
 			}
 		}
