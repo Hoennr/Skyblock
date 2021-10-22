@@ -1,6 +1,8 @@
 package fr.ohnreihen.skyblock;
 
 
+import java.util.Arrays;
+
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 //import org.bukkit.Bukkit;
@@ -29,7 +31,10 @@ import fr.ohnreihen.skyblock.Joueur.PiochePerso;
 import fr.ohnreihen.skyblock.Joueur.SwordPerso;
 import fr.ohnreihen.skyblock.Joueur.TableauScore;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
-import fr.ohnreihen.skyblock.menus.MenuMonde;
+import fr.ohnreihen.skyblock.menus.MenuAchat;
+import fr.ohnreihen.skyblock.menus.MenuBlocks;
+import fr.ohnreihen.skyblock.menus.MenuPrincipal;
+import fr.ohnreihen.skyblock.menus.MenuShopCategorie;
 import fr.ohnreihen.skyblock.monde.Monde;
 
 public class MonPluginListener implements Listener{
@@ -41,7 +46,7 @@ public class MonPluginListener implements Listener{
 		Player player = event.getPlayer();
 		Joueur joueur = new Joueur(player);
 		
-
+		player.teleport(Monde.WORLDPSPAWN.getSpawnLocation());
 		System.out.println("Le joueur " + joueur.getPlayer().getName() + " à rejoind le serveur");
 		//System.out.println("Le joueur " + joueur.getPlayer().getName() + " a " + joueur.getScoreChute()+ " de Score");
 
@@ -51,7 +56,7 @@ public class MonPluginListener implements Listener{
 			player.getInventory().addItem(new PiochePerso().getPioche());
 			player.getInventory().addItem(new SwordPerso().getSword());
 			player.getInventory().addItem(new HachePerso().getHache());
-			player.getInventory().addItem(MenuMonde.getMenuItem());
+			player.getInventory().addItem(MenuPrincipal.getMenuItem());
 			
 			Monde.creerIle(player);
 			joueur.setMondeIle(new Monde(player, Monde.TYPE_ILE));
@@ -218,28 +223,17 @@ public class MonPluginListener implements Listener{
 		if (inventaire !=null ) {
 			if(player!=inventaire.getHolder()) {
 				
-
-				ItemStack itemUsed = event.getCurrentItem();
-				if(itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEPVE)) {
-
-					Monde.changerMonde(player, Monde.TYPE_PVE);
-					player.closeInventory();
-					//System.out.println("Le joueur part dans le monde PVE");
-					
-				}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDEILE)){
-					
-					
-					Monde.changerMonde(player, Monde.TYPE_ILE);
-					player.closeInventory();
-					//System.out.println("Le joueur part sur son ile");
-					
-				}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuMonde.MONDESPAWN)){
-					
-					Monde.changerMonde(player, Monde.TYPE_SPAWN);
-					player.closeInventory();
-					
+				if (inventaire==MenuPrincipal.getInventaire()) {
+					//System.out.println("J'ai cliqué dans le menu");
+					MenuPrincipal.utiliserMenu(event);
+				}else if (inventaire==MenuShopCategorie.getInventaire()) {
+					MenuShopCategorie.utiliserMenu(event);
+				}else if (Arrays.asList(MenuBlocks.getInventaireCategorie()).indexOf(inventaire) != -1) {
+					MenuBlocks.utiliserMenu(event);
+				}else if (inventaire==MenuAchat.getInventaire()) {
+					MenuAchat.utiliserMenu(event);
 				}
-				
+								
 				event.setCancelled(true);
 				
 			}
@@ -248,14 +242,15 @@ public class MonPluginListener implements Listener{
 	}
 
 	@EventHandler
-	static void onUseMenu(PlayerInteractEvent event) {
+	static void onUseItemMenu(PlayerInteractEvent event) {
 		
 	    
 		Player p = event.getPlayer();
 	    if(event.getItem()!=null) {
 
-			if(event.getItem().getItemMeta().getDisplayName().equals(MenuMonde.NOMMENU)){
-		    	MenuMonde.ouvrirMenuMonde(p);
+			if(event.getItem().getItemMeta().getDisplayName().equals(MenuPrincipal.NOMMENU)){
+				MenuPrincipal.ouvrirMenuPrincipal(p);
+				event.setCancelled(true);
 		    }
 	    }
 	}

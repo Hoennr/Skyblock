@@ -10,6 +10,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import fr.ohnreihen.skyblock.Main;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.MoneyInsuffisantException;
 import fr.ohnreihen.skyblock.monde.Monde;
 
 
@@ -140,6 +141,25 @@ public class Joueur   {
 	public static void supprimerJoueurList(Player player) {
 		
 		listJoueur.remove(player.getUniqueId());
+		
+	}
+	
+	public void depenserMoney(long money) throws MoneyInsuffisantException {
+		
+		long moneyJoueur = this.getMoney();
+		if(money > moneyJoueur) {
+			throw (new MoneyInsuffisantException());
+		}else {
+			this.setMoney(moneyJoueur-money);
+			TableauScore.creerTableau(this);
+		}
+
+		
+	}
+
+	public void gainMoney(long moneyObtenu) {
+
+		this.setMoney(this.getMoney()+moneyObtenu);
 		
 	}
 }

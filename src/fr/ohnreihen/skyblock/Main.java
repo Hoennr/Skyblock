@@ -2,7 +2,10 @@ package fr.ohnreihen.skyblock;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.ohnreihen.skyblock.menus.MenuMonde;
+import fr.ohnreihen.skyblock.menus.MenuBlocks;
+import fr.ohnreihen.skyblock.menus.MenuPrincipal;
+import fr.ohnreihen.skyblock.menus.MenuShopCategorie;
+import fr.ohnreihen.skyblock.menus.Produits;
 
 
 
@@ -19,8 +22,11 @@ public class Main extends JavaPlugin {
 		super.onEnable();
 		plugin = this;
 		getServer().getPluginManager().registerEvents(new MonPluginListener(), this); 
-		MenuMonde.creerMenuMonde();
 
+		Produits.initialiserProduits();
+		MenuPrincipal.creerMenu();
+		MenuShopCategorie.creerMenu();
+		MenuBlocks.creerMenu();
 
 	}
 	
