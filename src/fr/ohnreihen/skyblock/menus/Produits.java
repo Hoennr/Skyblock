@@ -481,6 +481,8 @@ public class Produits {
 		listProduits.add(new Produits( 250 , 1 , Material.CARTOGRAPHY_TABLE, CATEGORIE_DECORATION));
 		listProduits.add(new Produits( 250 , 1 , Material.LOOM, CATEGORIE_DECORATION));
 		listProduits.add(new Produits( 250 , 1 , Material.CHEST, CATEGORIE_DECORATION));
+		listProduits.add(new Produits( 250 , 1 , Material.AMETHYST_BLOCK, CATEGORIE_DECORATION));
+		listProduits.add(new Produits( 250 , 1 , Material.AMETHYST_CLUSTER, CATEGORIE_DECORATION));
 		
 		
 		
