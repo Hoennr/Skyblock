@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -279,6 +280,22 @@ public class MonPluginListener implements Listener{
 		}catch (JoueurNonEnregistrerException e) {
 				System.out.println("Le joueur n'est pas encore enregistré. Veuillez attendre la fin de création de ses mondes");
 		}
+	}
+	
+	@EventHandler
+	static void onPlayerXPChange(PlayerExpChangeEvent event) {
+		
+		Player player = event.getPlayer();
+		
+		try {
+			Joueur joueur = Joueur.getJoueur(player);
+			TableauScore.creerTableau(joueur);
+		} catch (JoueurNonEnregistrerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 		
 }
