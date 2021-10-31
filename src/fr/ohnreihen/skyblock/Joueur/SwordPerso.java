@@ -13,9 +13,9 @@ public class SwordPerso extends OutilIncassable {
 	
 	public  ItemStack sword = new ItemStack(Material.WOODEN_SWORD);
 	public static String NOMSWORD = "§eMa Super épée";
-	public static int enchantDommageParNiveau[]= new int []{0,1,0,1,2,2,0,1,2,3,0,4};
+	public static int enchantDommageParNiveau[]= new int []{0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,2,2};
 	public static int enchantHasteParNiveau[]= new int []{0,0,0,1,0,0,0,1,0,0,0,1};
-	public static Material materialParNiveau[]= new Material []{Material.STONE_SWORD,Material.STONE_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD};
+	public static Material materialParNiveau[]= new Material []{Material.STONE_SWORD,Material.STONE_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.IRON_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.DIAMOND_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD,Material.NETHERITE_SWORD};
 
 	public SwordPerso() {
 		customItem(sword, NOMSWORD);

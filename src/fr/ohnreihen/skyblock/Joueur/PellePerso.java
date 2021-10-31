@@ -13,9 +13,9 @@ public class PellePerso extends OutilIncassable {
 	
 	public  ItemStack pelle = new ItemStack(Material.WOODEN_SHOVEL);
 	public static String NOMPELLE = "§eMa Super pelle";
-	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,2,2,0,1,2,3,0,4};
+	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,2,2};
 	public static int enchantHasteParNiveau[]= new int []{0,0,0,1,0,0,0,1,0,0,0,1};
-	public static Material materialParNiveau[]= new Material []{Material.STONE_SHOVEL,Material.STONE_SHOVEL,Material.IRON_SHOVEL,Material.IRON_SHOVEL,Material.IRON_SHOVEL,Material.IRON_SHOVEL,Material.DIAMOND_SHOVEL,Material.DIAMOND_SHOVEL,Material.DIAMOND_SHOVEL,Material.DIAMOND_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL};
+	public static Material materialParNiveau[]= new Material []{Material.STONE_SHOVEL,Material.STONE_SHOVEL,Material.IRON_SHOVEL,Material.IRON_SHOVEL,Material.IRON_SHOVEL,Material.IRON_SHOVEL,Material.DIAMOND_SHOVEL,Material.DIAMOND_SHOVEL,Material.DIAMOND_SHOVEL,Material.DIAMOND_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL,Material.NETHERITE_SHOVEL};
 
 	public PellePerso() {
 		customItem(pelle, NOMPELLE);
@@ -25,7 +25,7 @@ public class PellePerso extends OutilIncassable {
 
 	}
 	
-	public ItemStack getHache() {
+	public ItemStack getPelle() {
 		return pelle;
 	}
 	
@@ -64,11 +64,11 @@ public class PellePerso extends OutilIncassable {
 
 		int  newNiveau = Integer.parseInt(lore.get(0).replace("Niveau : ", ""));
 		niveau = newNiveau;
-		System.out.println("Le niveau de la pelle est : " + newNiveau);
+		//System.out.println("Le niveau de la pelle est : " + newNiveau);
 		
 		int  newExp = Integer.parseInt(lore.get(2).replace("/"+expParNiveau[niveau], ""));
 		exp=newExp;
-		System.out.println("Et elle a  : " + newExp + " d'exp");
+		//System.out.println("Et elle a  : " + newExp + " d'exp");
 
 	}
 

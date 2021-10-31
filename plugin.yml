@@ -7,4 +7,13 @@ commands:
   test:
     description: Ceci est une commande de test
     permission: test.use
+  sell:
+    description: Vendre tout les items vendable inventaire
+    permission: sell.use
+  kit:
+    description: Donne le kit de dzbut au joueur
+    permission: kit.use
+  menu:
+    description: Ouvre le menu principal
+    permission: menu.use
  

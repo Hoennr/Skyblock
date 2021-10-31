@@ -13,7 +13,7 @@ public class OutilIncassable {
 	
 	public  int exp = 0;
 	public  int niveau = 0;
-	public static int expParNiveau[]= new int []{10,800,2000,4000,7000,11200,16800,24000,34000,47900,67200,94100};
+	public static int expParNiveau[]= new int []{25,600,2000,4000,7000,11200,16800,24000,34000,47900,67200,94100,160000,300000,750000,1700000,3600000};
 	public boolean aLevelUp = false;
 	public  ItemStack item = new ItemStack(Material.DIRT);
 	public static Material listMaterialPickaxe[]= new Material[] {

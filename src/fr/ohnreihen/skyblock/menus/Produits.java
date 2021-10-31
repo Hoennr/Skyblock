@@ -523,5 +523,4 @@ public class Produits {
 		
 		trierProduitsParCategorie();
 	}
-
 }

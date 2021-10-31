@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.ohnreihen.skyblock.Joueur.Joueur;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
 import fr.ohnreihen.skyblock.monde.Monde;
 
@@ -64,6 +65,19 @@ public class MenuPrincipal {
 		itemMeta3.setDisplayName(MenuUPIle.NOMMENU);
 		option3.setItemMeta(itemMeta3);
 		inventaire.setItem(32,option3);
+
+		ItemStack option4 = new ItemStack (Material.END_CRYSTAL);
+		ItemMeta itemMeta4 = option4.getItemMeta();
+		itemMeta4.setDisplayName("Obtenir Kit");
+		ArrayList<String> lore = new ArrayList<String>();
+		lore.add("§fCliquer pour obtenir le kit de départ");
+		lore.add("§7-Pioche");
+		lore.add("§7-Epée");
+		lore.add("§7-Hache");
+		lore.add("§7-Menu");
+		itemMeta4.setLore(lore);
+		option4.setItemMeta(itemMeta4);
+		inventaire.setItem(43,option4);
 
 
 		for (int i=0; i<inventaire.getSize(); i++) {
@@ -119,6 +133,9 @@ public class MenuPrincipal {
 			//System.out.println("Le joueur part sur son ile");
 		}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuPrincipal.MONDESPAWN)){
 			Monde.changerMonde(player, Monde.TYPE_SPAWN);
+			player.closeInventory();
+		}else if (itemUsed.getItemMeta().getDisplayName().equals("Obtenir Kit")){
+			Joueur.donnerKit(player);
 			player.closeInventory();
 		}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuUPIle.NOMMENU)) {
 			MenuUPIle.creerMenu(player);

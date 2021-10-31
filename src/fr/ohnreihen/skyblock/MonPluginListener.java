@@ -29,6 +29,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import fr.ohnreihen.skyblock.Joueur.HachePerso;
 import fr.ohnreihen.skyblock.Joueur.Joueur;
+import fr.ohnreihen.skyblock.Joueur.PellePerso;
 import fr.ohnreihen.skyblock.Joueur.PiochePerso;
 import fr.ohnreihen.skyblock.Joueur.SwordPerso;
 import fr.ohnreihen.skyblock.Joueur.TableauScore;
@@ -57,10 +58,7 @@ public class MonPluginListener implements Listener{
 
 		if(estFirstConnection(player)) {
 			
-			player.getInventory().addItem(new PiochePerso().getPioche());
-			player.getInventory().addItem(new SwordPerso().getSword());
-			player.getInventory().addItem(new HachePerso().getHache());
-			player.getInventory().addItem(MenuPrincipal.getMenuItem());
+			Joueur.donnerKit(player);
 			
 			Monde.creerIle(player);
 			joueur.setMondeIle(new Monde(player, Monde.TYPE_ILE));
@@ -157,6 +155,9 @@ public class MonPluginListener implements Listener{
 			HachePerso hachePerso = new HachePerso();
 			hachePerso.majItem(itemTenue, player, 1);
 			
+		}if ( (nomItem.equals(PellePerso.NOMPELLE))  & (estBonOutil) ) {
+			PellePerso pellePerso = new PellePerso();
+			pellePerso.majItem(itemTenue, player, 1);
 		}
 	
 		

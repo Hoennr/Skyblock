@@ -10,6 +10,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.ohnreihen.skyblock.Joueur.Joueur;
+
 
 public class MenuShopCategorie {
 
@@ -46,6 +48,12 @@ public class MenuShopCategorie {
 		itemMeta.setDisplayName("Retour");
 		boutonBack.setItemMeta(itemMeta);
 		inventaire.setItem(19,boutonBack );
+		
+		ItemStack boutonSellAll = new ItemStack (Material.ENDER_CHEST);
+		ItemMeta itemMetaSA = boutonBack.getItemMeta();
+		itemMetaSA.setDisplayName("Tout Vendre");
+		boutonSellAll.setItemMeta(itemMetaSA);
+		inventaire.setItem(25,boutonSellAll );
 	}
 	
 	public static void ouvrirMenuCategorie(Player player) {
@@ -66,6 +74,8 @@ public class MenuShopCategorie {
 			
 		}else if (itemUsed.getItemMeta().getDisplayName().equals("Retour")) {
 			MenuPrincipal.ouvrirMenuPrincipal(player);
+		}else if (itemUsed.getItemMeta().getDisplayName().equals("Tout Vendre")) {
+			Joueur.toutVendre(player);
 		}
 		
 		event.setCancelled(true);

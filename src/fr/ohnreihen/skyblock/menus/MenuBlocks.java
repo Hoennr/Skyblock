@@ -12,10 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.ohnreihen.skyblock.Joueur.Joueur;
-import fr.ohnreihen.skyblock.Joueur.TableauScore;
-import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
-import fr.ohnreihen.skyblock.Joueur.exceptionPerso.ProduitInexistantException;
-
 public class MenuBlocks {
 
 	@SuppressWarnings("unchecked")
@@ -128,7 +124,7 @@ public static ArrayList<Inventory>[] getListInventaireCategorie() {
 			}else if(event.getClick()==ClickType.LEFT) {
 				MenuAchat.ouvrirMenu(player,itemUsed);
 			}else if (event.getClick()==ClickType.RIGHT) {
-				vendreItem(player,itemUsed);
+				Joueur.vendreItem(player,itemUsed);
 			}
 			
 		}
@@ -154,51 +150,6 @@ public static ArrayList<Inventory>[] getListInventaireCategorie() {
 		ouvrirMenuBlocks(player, Produits.NOM_CATEGORIE[categorie],numeroPage );
 		
 	}
-	private static void vendreItem(Player player, ItemStack itemUsed) {
-
-		int nbIS = 0;
-		
-		Inventory inventairePlayer = player.getInventory();
-		if(inventairePlayer.contains(itemUsed.getType())) {
-			for (int i =0 ; i<inventairePlayer.getContents().length; i++) {
-				ItemStack[] items = inventairePlayer.getContents();
-				if (items[i]!=null) {
-					if (items[i].getType()==itemUsed.getType()) {
-						nbIS = nbIS+items[i].getAmount();
-					}
-				}
-				
-			}
-			
-			inventairePlayer.remove(itemUsed.getType());
-			
-			try {
-				Produits produit = Produits.getProduit(itemUsed);
-				Joueur joueur = Joueur.getJoueur(player);
-				int moneyObtenu = produit.getPrixVente()*nbIS;
-				//joueur.setMoney(joueur.getMoney()+moneyObtenu);
-				joueur.gainMoney(moneyObtenu);
-				TableauScore.creerTableau(joueur);
-				
-			} catch (ProduitInexistantException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			
-			} catch (JoueurNonEnregistrerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//System.out.println("Vous avez +"+ nbIS + " de " + itemUsed.getType().toString()+ " dans votre inventaire");
-			
-		}else {
-			
-			player.sendRawMessage("Vous n'avez pas de " + itemUsed.getType().toString()+ " dans votre inventaire");
-
-		}
-		
-	}
-	
 	
 
 }

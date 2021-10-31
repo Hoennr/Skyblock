@@ -13,9 +13,9 @@ public class HachePerso extends OutilIncassable {
 	
 	public  ItemStack hache = new ItemStack(Material.WOODEN_AXE);
 	public static String NOMHACHE = "§eMa Super hache";
-	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,2,2,0,1,2,3,0,4};
+	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,2,2};
 	public static int enchantHasteParNiveau[]= new int []{0,0,0,1,0,0,0,1,0,0,0,1};
-	public static Material materialParNiveau[]= new Material []{Material.STONE_AXE,Material.STONE_AXE,Material.IRON_AXE,Material.IRON_AXE,Material.IRON_AXE,Material.IRON_AXE,Material.DIAMOND_AXE,Material.DIAMOND_AXE,Material.DIAMOND_AXE,Material.DIAMOND_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE};
+	public static Material materialParNiveau[]= new Material []{Material.STONE_AXE,Material.STONE_AXE,Material.IRON_AXE,Material.IRON_AXE,Material.IRON_AXE,Material.IRON_AXE,Material.DIAMOND_AXE,Material.DIAMOND_AXE,Material.DIAMOND_AXE,Material.DIAMOND_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE,Material.NETHERITE_AXE};
 
 	public HachePerso() {
 		customItem(hache, NOMHACHE);

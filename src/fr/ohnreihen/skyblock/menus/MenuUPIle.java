@@ -54,12 +54,12 @@ public class MenuUPIle {
 			lore.add("§7("+ Monde.TAILLEPARNIVEAU[niveauTaille]+"x"+Monde.TAILLEPARNIVEAU[niveauTaille] + ")");
 
 			lore.add(" ");
-			lore.add("§6Prix :" );
-			lore.add("§f"+Monde.PRIXPARTAILLEPARNIVEAU[niveauTaille] + "§e￥" );
-			lore.add(" ");
 			lore.add("§6Necessaire :" );
 			lore.add("§fMiner "+ Monde.EXPPARTAILLEPARNIVEAU[niveauTaille] + " blocks");
 			lore.add("§7("+ joueur.getBlockMined() + "/"+ Monde.EXPPARTAILLEPARNIVEAU[niveauTaille] + ")");
+			lore.add(" ");
+			lore.add("§6Prix :" );
+			lore.add("§f"+Monde.PRIXPARTAILLEPARNIVEAU[niveauTaille] + "§e￥" );
 			lore.add(" ");
 			lore.add("§6Prochain niveau :" );
 			lore.add("§f"+Monde.TAILLEPARNIVEAU[niveauTaille+1]+"x"+Monde.TAILLEPARNIVEAU[niveauTaille+1]);
@@ -78,13 +78,12 @@ public class MenuUPIle {
 			lore1.add("§fNiveau actuel : §e"+niveauMinerai);
 			lore1.add("§7("+ Monde.NOMUNLOCKMINERAIPARNIVEAU[niveauMinerai]+ ")");
 			lore1.add(" ");
-			lore1.add("§6Prix :" );
-			lore1.add("§f"+Monde.PRIXPARMINERAIPARNIVEAU[niveauMinerai] + "§e￥" );
-			lore1.add(" ");
 			lore1.add("§6Necessaire :" );
 			lore1.add("§fMiner "+ Monde.EXPPARMINERAIPARNIVEAU[niveauMinerai] + " blocks");
-			lore1.add("§7("+ joueur.getBlockMined() + "/"+ Monde.EXPPARTAILLEPARNIVEAU[niveauMinerai] + ")");
-			lore1.add(" ");
+			lore1.add("§7("+ joueur.getBlockMined() + "/"+ Monde.EXPPARMINERAIPARNIVEAU[niveauMinerai] + ")");
+			lore1.add("§6Prix :" );
+			lore1.add("§f"+Monde.PRIXPARMINERAIPARNIVEAU[niveauMinerai] + "§e￥" );
+			lore1.add(" ");lore1.add(" ");
 			lore1.add("§6Prochain niveau :" );
 			lore1.add("§fDébloque : "+Monde.NOMUNLOCKMINERAIPARNIVEAU[niveauTaille+1]);
 			itemMeta0.setLore(lore1);

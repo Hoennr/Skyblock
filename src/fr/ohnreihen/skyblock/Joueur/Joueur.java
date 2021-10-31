@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -16,6 +18,9 @@ import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.MoneyInsuffisantException;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.NecessaireMineraiIleException;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.NecessaireTailleIleException;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.ProduitInexistantException;
+import fr.ohnreihen.skyblock.menus.MenuPrincipal;
+import fr.ohnreihen.skyblock.menus.Produits;
 import fr.ohnreihen.skyblock.monde.Monde;
 
 
@@ -221,6 +226,85 @@ public class Joueur   {
 
 		}
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	public static void vendreItem(Player player, ItemStack itemUsed) {
+
+		int nbIS = 0;
+		
+		Inventory inventairePlayer = player.getInventory();
+		if(inventairePlayer.contains(itemUsed.getType())) {
+			for (int i =0 ; i<inventairePlayer.getContents().length; i++) {
+				ItemStack[] items = inventairePlayer.getContents();
+				if (items[i]!=null) {
+					if (items[i].getType()==itemUsed.getType()) {
+						nbIS = nbIS+items[i].getAmount();
+					}
+				}
+				
+			}
+			
+			
+			
+			try {
+				Produits produit = Produits.getProduit(itemUsed);
+				Joueur joueur = Joueur.getJoueur(player);
+				int moneyObtenu = produit.getPrixVente()*nbIS;
+				//joueur.setMoney(joueur.getMoney()+moneyObtenu);
+				inventairePlayer.remove(itemUsed.getType());
+				joueur.gainMoney(moneyObtenu);
+				TableauScore.creerTableau(joueur);
+				
+			} catch (ProduitInexistantException e) {
+				// TODO Auto-generated catch block
+			
+			} catch (JoueurNonEnregistrerException e) {
+				// TODO Auto-generated catch block
+			}
+			
+			//System.out.println("Vous avez +"+ nbIS + " de " + itemUsed.getType().toString()+ " dans votre inventaire");
+			
+		}else {
+			
+			//player.sendRawMessage("Vous n'avez pas de " + itemUsed.getType().toString()+ " dans votre inventaire");
+
+		}
+		
+	}
+	
+	
+	public static void toutVendre(Player player) {
+		
+		ItemStack[] listIS = player.getInventory().getContents();
+		for (int i=0; i<listIS.length;i++) {
+			
+			if(listIS[i]!=null) {
+
+				try {
+					Produits produit = Produits.getProduit(listIS[i]);
+					if (Produits.getListProduits().contains(produit)) {
+						vendreItem(player,listIS[i] );
+					}
+				} catch (ProduitInexistantException e) {
+					// TODO Auto-generated catch block
+				}
+				
+			}
+			
+		}
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void donnerKit(Player player) {
+
+		player.getInventory().addItem(new PiochePerso().getPioche());
+		player.getInventory().addItem(new SwordPerso().getSword());
+		player.getInventory().addItem(new PellePerso().getPelle());
+		player.getInventory().addItem(new HachePerso().getHache());
+		player.getInventory().addItem(MenuPrincipal.getMenuItem());
 		
 	}
 }

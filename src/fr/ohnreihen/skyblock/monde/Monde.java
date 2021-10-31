@@ -26,8 +26,8 @@ public class Monde {
 	private float vitesseSpawn = 1;
 	private float chanceDoubleLoot = 0;
 	private int niveauMinerai = 0; //lv0= stone / lv1=charbon / lv2= redstone / lvl3= gold / lvl4= iron / lvl5= diamand
-	public static final int EXPPARMINERAIPARNIVEAU[]= {10,20,30,40,55,70,100,150,250,500,1000};
-	public static final int PRIXPARMINERAIPARNIVEAU[]= {10,20,30,40,55,70,100,150,250,500,1000};
+	public static final int EXPPARMINERAIPARNIVEAU[]= {1000,5000,10000,20000,30000,50000,100000};
+	public static final int PRIXPARMINERAIPARNIVEAU[]= {250000,500000,750000,1250000,2000000,3500000,5000000};
 
 	public static final String NOMUNLOCKMINERAIPARNIVEAU []= {"Cobblestone","Charbon","Redstone","Or","Fer","Diamand","Emeraude"};
 	public static final Material[] LISTMINERAI = {Material.COBBLESTONE,Material.COAL_ORE,Material.ANDESITE,Material.GRANITE,Material.DIORITE,Material.LAPIS_ORE,Material.REDSTONE_ORE,Material.GOLD_ORE,Material.COPPER_ORE,Material.IRON_ORE,Material.DIAMOND_ORE,Material.EMERALD_ORE,Material.ANCIENT_DEBRIS};
@@ -37,8 +37,8 @@ public class Monde {
 																{50,15,5,5,5,10,10,0,0,0,0,0,0},
 																{46,13,3,3,3,6,7,10,9,0,0,0,0},
 																{44,12,2,2,2,6,7,8,6,11,0,0,0},
-																{41,11,2,2,2,5,6,8,6,11,6,0,0},
-																{40,11,2,2,2,4,5,7,5,11,6,3,2}};
+																{41,11,2,2,2,5,6,7,6,11,7,0,0},
+																{40,11,2,2,2,4,5,7,5,11,7,2,2}};
 	private float multiplicateurValeurItem = 1;
 	public static final String TYPE_PVE= "PVE";
 	public static final String TYPE_ILE= "ILE";
@@ -46,8 +46,8 @@ public class Monde {
 	private int niveauTaille = 0;
 	private int taille = 75;
 	public static final int TAILLEPARNIVEAU[]= {75,100,150,225,300,400,600,800,1200,2000,4000};
-	public static final int EXPPARTAILLEPARNIVEAU[]= {10,20,30,40,55,70,100,150,250,500,1000};
-	public static final int PRIXPARTAILLEPARNIVEAU[]= {10,20,30,40,55,70,100,150,250,500,1000};
+	public static final int EXPPARTAILLEPARNIVEAU[]= {1000,2000,3000,4000,5500,7000,10000,15000,20500,50000,100000};
+	public static final int PRIXPARTAILLEPARNIVEAU[]= {100000,200000,300000,400000,550000,700000,1000000,1500000,2500000,5000000,10000000};
 	private int xMax = taille/2;
 	private int xMin = -taille/2;
 	private int zMax = taille/2;

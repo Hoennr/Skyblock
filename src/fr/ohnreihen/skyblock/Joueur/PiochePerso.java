@@ -13,9 +13,9 @@ public class PiochePerso extends OutilIncassable {
 	
 	public  ItemStack pioche = new ItemStack(Material.WOODEN_PICKAXE);
 	public static String NOMPIOCHE = "§eMa Super Pioche";
-	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,2,2,0,1,2,3,0,4};
+	public static int enchantEfficiencyParNiveau[]= new int []{0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,2,2};
 	public static int enchantHasteParNiveau[]= new int []{0,0,0,1,0,0,0,1,0,0,0,1};
-	public static Material materialParNiveau[]= new Material []{Material.STONE_PICKAXE,Material.STONE_PICKAXE,Material.IRON_PICKAXE,Material.IRON_PICKAXE,Material.IRON_PICKAXE,Material.IRON_PICKAXE,Material.DIAMOND_PICKAXE,Material.DIAMOND_PICKAXE,Material.DIAMOND_PICKAXE,Material.DIAMOND_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE};
+	public static Material materialParNiveau[]= new Material []{Material.STONE_PICKAXE,Material.STONE_PICKAXE,Material.IRON_PICKAXE,Material.IRON_PICKAXE,Material.IRON_PICKAXE,Material.IRON_PICKAXE,Material.DIAMOND_PICKAXE,Material.DIAMOND_PICKAXE,Material.DIAMOND_PICKAXE,Material.DIAMOND_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE};
 
 	public PiochePerso() {
 		customItem(pioche, NOMPIOCHE);
