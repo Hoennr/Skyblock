@@ -58,6 +58,12 @@ public class MenuPrincipal {
 		itemMeta2.setDisplayName(MONDEILE);
 		option2.setItemMeta(itemMeta2);
 		inventaire.setItem(23,option2);
+		
+		ItemStack option3 = new ItemStack (Material.COMPARATOR);
+		ItemMeta itemMeta3 = option3.getItemMeta();
+		itemMeta3.setDisplayName(MenuUPIle.NOMMENU);
+		option3.setItemMeta(itemMeta3);
+		inventaire.setItem(32,option3);
 
 
 		for (int i=0; i<inventaire.getSize(); i++) {
@@ -114,6 +120,9 @@ public class MenuPrincipal {
 		}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuPrincipal.MONDESPAWN)){
 			Monde.changerMonde(player, Monde.TYPE_SPAWN);
 			player.closeInventory();
+		}else if (itemUsed.getItemMeta().getDisplayName().equals(MenuUPIle.NOMMENU)) {
+			MenuUPIle.creerMenu(player);
+			MenuUPIle.ouvrirMenuUPIle(player);
 		}
 		event.setCancelled(true);
 	}

@@ -194,7 +194,6 @@ public static ArrayList<Inventory>[] getListInventaireCategorie() {
 		}else {
 			
 			player.sendRawMessage("Vous n'avez pas de " + itemUsed.getType().toString()+ " dans votre inventaire");
-			player.closeInventory();
 
 		}
 		

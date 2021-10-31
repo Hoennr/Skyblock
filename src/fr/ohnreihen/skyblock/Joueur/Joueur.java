@@ -1,9 +1,12 @@
 package fr.ohnreihen.skyblock.Joueur;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -11,6 +14,8 @@ import org.bukkit.persistence.PersistentDataType;
 import fr.ohnreihen.skyblock.Main;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.JoueurNonEnregistrerException;
 import fr.ohnreihen.skyblock.Joueur.exceptionPerso.MoneyInsuffisantException;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.NecessaireMineraiIleException;
+import fr.ohnreihen.skyblock.Joueur.exceptionPerso.NecessaireTailleIleException;
 import fr.ohnreihen.skyblock.monde.Monde;
 
 
@@ -23,8 +28,7 @@ public class Joueur   {
     private int eclat = 0;
     private int niveauPrestige=0;
     private Monde mondePVE;
-    private Monde mondeIle;
-    
+    private Monde mondeIle;    
     
 	private static int NOMBRE_JOUEUR_MAX = 20;
 	public static HashMap<UUID, Joueur>  listJoueur = new HashMap<UUID, Joueur>(NOMBRE_JOUEUR_MAX);
@@ -68,6 +72,18 @@ public class Joueur   {
 		return mondePVE;
 	}public void setMondePVE(Monde mondePVE) {
 		this.mondePVE = mondePVE;
+	}
+	
+	public int getBlockMined() {
+		Material[] listBlockMined = {Material.COBBLESTONE,Material.STONE,Material.GRANITE,Material.ANDESITE,Material.DIORITE,Material.BRICKS,Material.SMOOTH_STONE,Material.MOSSY_COBBLESTONE,Material.STONE_BRICKS,Material.MOSSY_STONE_BRICKS,Material.CRACKED_STONE_BRICKS,Material.CHISELED_STONE_BRICKS,Material.SANDSTONE,Material.CHISELED_SANDSTONE,Material.CUT_SANDSTONE,Material.SMOOTH_SANDSTONE,Material.RED_SANDSTONE,Material.CHISELED_RED_SANDSTONE,Material.CUT_RED_SANDSTONE,Material.SMOOTH_RED_SANDSTONE,Material.QUARTZ_BLOCK,Material.END_STONE,Material.NETHERRACK,Material.BASALT,Material.NETHER_BRICKS,Material.PRISMARINE,Material.PRISMARINE_BRICKS,Material.DARK_PRISMARINE,Material.COAL_ORE,Material.COPPER_ORE,Material.DIAMOND_ORE,Material.EMERALD_ORE,Material.GOLD_ORE,Material.IRON_ORE,Material.LAPIS_ORE,Material.NETHER_GOLD_ORE,Material.NETHER_QUARTZ_ORE,Material.REDSTONE_ORE};
+		int nbBlockMine = 0;
+		
+		for(int i = 0; i<listBlockMined.length;i++) {
+			nbBlockMine = nbBlockMine + joueur.getStatistic(Statistic.MINE_BLOCK, listBlockMined[i]);
+		}
+		
+		return nbBlockMine;
+		
 	}
 
     ///////////                    METHODES PERSO            ////////////////////////////
@@ -137,6 +153,21 @@ public class Joueur   {
 		
 		return joueur; 
 	}
+	
+	public static Joueur getJoueur(String nomJoueur) throws JoueurNonEnregistrerException {
+		Joueur joueur=null;
+		Collection <Joueur> coll = listJoueur.values();
+		for (Joueur element : coll) {
+			if (element.getPlayer().getDisplayName().equals(nomJoueur)){
+				joueur= element;
+			}
+		 }
+		if (joueur==null) {
+			throw (new JoueurNonEnregistrerException());
+		}
+		
+		return joueur;
+	}
 
 	public static void supprimerJoueurList(Player player) {
 		
@@ -160,6 +191,36 @@ public class Joueur   {
 	public void gainMoney(long moneyObtenu) {
 
 		this.setMoney(this.getMoney()+moneyObtenu);
+		
+	}
+
+	public void upgradeTailleIle() throws NecessaireTailleIleException, MoneyInsuffisantException {
+		
+		int niveauTaille = this.getMondeIle().getNiveauTaille();
+		if (this.getBlockMined()< Monde.EXPPARTAILLEPARNIVEAU[niveauTaille]) {
+			throw(new NecessaireTailleIleException());
+		}else {
+			depenserMoney(Monde.PRIXPARTAILLEPARNIVEAU[niveauTaille]);
+			this.getMondeIle().setNiveauTaille(niveauTaille+1);
+			joueur.sendTitle("Votre ile,","deviens plus grande " , 20, 100, 20);
+			
+		}
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void upgradeMinerai() throws NecessaireMineraiIleException, MoneyInsuffisantException {
+		
+		int niveauMinerai = this.getMondeIle().getNiveauMinerai();
+		if (this.getBlockMined()< Monde.EXPPARTAILLEPARNIVEAU[niveauMinerai]) {
+			throw (new NecessaireMineraiIleException());
+		}else {
+			depenserMoney(Monde.PRIXPARMINERAIPARNIVEAU[niveauMinerai]);
+			this.getMondeIle().setNiveauMinerai(niveauMinerai+1);
+			joueur.sendTitle("Vous débloquez", Monde.NOMUNLOCKMINERAIPARNIVEAU[niveauMinerai+1] , 20, 100, 20);
+
+		}
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -1,9 +1,10 @@
 package fr.ohnreihen.skyblock;
 
 
-
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 //import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -35,6 +37,7 @@ import fr.ohnreihen.skyblock.menus.MenuAchat;
 import fr.ohnreihen.skyblock.menus.MenuBlocks;
 import fr.ohnreihen.skyblock.menus.MenuPrincipal;
 import fr.ohnreihen.skyblock.menus.MenuShopCategorie;
+import fr.ohnreihen.skyblock.menus.MenuUPIle;
 import fr.ohnreihen.skyblock.menus.Produits;
 import fr.ohnreihen.skyblock.monde.Monde;
 
@@ -236,7 +239,9 @@ public class MonPluginListener implements Listener{
 					MenuAchat.utiliserMenu(event);
 				}else if (Produits.contientNomCategorie(event.getView().getTitle())){
 					MenuBlocks.utiliserMenu(event);
-				}				
+				}else if (inventaire==MenuUPIle.getInventaire()) {
+					MenuUPIle.utiliserMenu(event);
+				}
 				
 				
 			}
@@ -295,6 +300,79 @@ public class MonPluginListener implements Listener{
 			e.printStackTrace();
 		}
 		
+		
+	}
+	
+	@EventHandler
+	public void onCobblestoneGenered(BlockFromToEvent event) {
+		boolean isWater = false;
+		World world = event.getToBlock().getWorld();
+		if (world.getName().contains(Monde.TYPE_ILE)) {
+			Location loc = event.getToBlock().getLocation();
+			Location loc1 = event.getToBlock().getLocation();
+			Location loc2 = event.getToBlock().getLocation();
+			Location loc3 = event.getToBlock().getLocation();
+			
+			if (event.getBlock().getType() == Material.LAVA && event.getToBlock().getType() == Material.AIR) {
+				loc.setX(loc.getX()-1);
+				loc1.setX(loc.getX()+1);
+				loc2.setZ(loc.getZ()-1);
+				loc3.setZ(loc.getZ()+1);
+				
+				if (world.getBlockAt(loc).getType() == Material.WATER ||world.getBlockAt(loc1).getType() == Material.WATER ||world.getBlockAt(loc2).getType() == Material.WATER ||world.getBlockAt(loc3).getType() == Material.WATER ) {
+					isWater=true;
+				}
+				
+				if (isWater) {
+					System.out.println("On a utilisé un générateur de cobblestone");
+					genererMinerai(event);
+				}
+			}
+
+		}
+	}
+
+	private void genererMinerai(BlockFromToEvent event) {
+		
+		Monde monde = Monde.getMondeIle(event.getToBlock().getWorld());
+		System.out.println("Le nom de l'ile est " + monde.getNomMonde());
+		int niveauMinerai = monde.getNiveauMinerai();
+		
+		//List<Integer> probabilité = new ArrayList<Integer>();
+		//for (int i=0; i<Monde.PROBABILITEMINERAIPARNIVEAU[niveauMinerai].length;i++) {
+		//	int pro = (int) (Monde.PROBABILITEMINERAIPARNIVEAU[niveauMinerai][i] * Math.random()*50);
+		//	probabilité.add(pro );
+		//	System.out.println ("On a obtenue "+ pro + "pour le material "+ Monde.LISTMINERAI[i]);
+		//}
+		//int valeurMax = Collections.max(probabilité);
+		//int indexValeurMax = probabilité.indexOf(valeurMax);
+		
+		
+		int rng = (int) (Math.random()*101);
+		System.out.println("La RNG est " + rng);
+		int num = 0;
+		int index = 0;
+		boolean materialTrouve = false;
+		for (int i = 0; i<Monde.PROBABILITEMINERAIPARNIVEAU[niveauMinerai].length && !materialTrouve;i++) {
+			num = num + Monde.PROBABILITEMINERAIPARNIVEAU[niveauMinerai][i];
+			
+
+			
+			if (rng<num) {
+				
+				materialTrouve = true;
+				index=i;
+			}
+		}
+		//Material matChoisi = Monde.LISTMINERAI[indexValeurMax];
+		System.out.println("Le material choisi est donc "+ Monde.LISTMINERAI[index]);
+		
+		event.setCancelled(true);
+		event.getToBlock().setType(Monde.LISTMINERAI[index]);
+		
+		//for (int i=0; i < Monde.)
+		
+		// TODO Auto-generated method stub
 		
 	}
 		
