@@ -81,9 +81,10 @@ public class MenuUPIle {
 			lore1.add("§6Necessaire :" );
 			lore1.add("§fMiner "+ Monde.EXPPARMINERAIPARNIVEAU[niveauMinerai] + " blocks");
 			lore1.add("§7("+ joueur.getBlockMined() + "/"+ Monde.EXPPARMINERAIPARNIVEAU[niveauMinerai] + ")");
+			lore1.add(" ");
 			lore1.add("§6Prix :" );
 			lore1.add("§f"+Monde.PRIXPARMINERAIPARNIVEAU[niveauMinerai] + "§e￥" );
-			lore1.add(" ");lore1.add(" ");
+			lore1.add(" ");
 			lore1.add("§6Prochain niveau :" );
 			lore1.add("§fDébloque : "+Monde.NOMUNLOCKMINERAIPARNIVEAU[niveauTaille+1]);
 			itemMeta0.setLore(lore1);
